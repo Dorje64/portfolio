@@ -11,8 +11,38 @@ import {
   Header,
   Image,
   List,
-  Segment
+  Segment,
+  Tab,
+  Progress
 } from 'semantic-ui-react';
+
+
+const Intro = () => { return(<div>
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,
+                        when an unknown printer took a galley of type and scrambled it to make a type
+                        specimen book. It has survived not only five centuries.
+                    </div>)
+                  }
+const panes = [
+  { menuItem: 'ABOUT', render: () => <Intro /> },
+  { menuItem: 'SKILLS', render: () => (<div>
+    <dl>
+    <dt>
+    <Progress percent={32} inverted color='green' progress />
+    </dt>
+    <dd>
+      HTML/CSS
+    </dd>
+    </dl>
+    <Progress percent={59} inverted color='green' progress />
+    <Progress percent={13} inverted color='green' progress />
+    <Progress percent={37} inverted color='green' progress />
+    <Progress percent={83} inverted color='green' progress />
+
+
+    </div>) }
+]
 
 const ResponsiveContainer = ({ children }) => (
   <div>
@@ -27,32 +57,19 @@ ResponsiveContainer.propTypes = {
 
 const HomepageLayout = () => (
   <ResponsiveContainer>
-    <Segment style={{ padding: '8em 0em' }} vertical>
-      <Grid container stackable verticalAlign='middle'>
+    <Segment style={{ padding: '4em 0em' }} vertical>
+      <Grid container stackable >
         <Grid.Row>
-          <Grid.Column width={8}>
-            <Header as='h3' style={{ fontSize: '2em' }}>We Help Companies and Companions</Header>
-            <p style={{ fontSize: '1.33em' }}>
-              We can give your company superpowers to do things that they never thought possible. Let us delight
-              your customers and empower your needs... through pure data analytics.
-            </p>
-            <Header as='h3' style={{ fontSize: '2em' }}>We Make Bananas That Can Dance</Header>
-            <p style={{ fontSize: '1.33em' }}>
-              Yes that is right, you thought it was the stuff of dreams, but even bananas can be bioengineered.
-            </p>
+          <Grid.Column width={6}>
+          <Image
+            bordered
+            rounded
+            size='large'
+            src={require('../banner.jpg')}
+          />
           </Grid.Column>
-          <Grid.Column floated='right' width={6}>
-            <Image
-              bordered
-              rounded
-              size='large'
-              src='/assets/images/wireframe/white-image.png'
-            />
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          <Grid.Column textAlign='center'>
-            <Button size='huge'>Check Them Out</Button>
+          <Grid.Column floated='right' width={10}>
+            <Tab menu={{ secondary: true, pointing: true }} panes={panes} className = "about-tab"/>
           </Grid.Column>
         </Grid.Row>
       </Grid>
