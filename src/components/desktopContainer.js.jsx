@@ -7,73 +7,47 @@
  import HomepageHeading from './homepageHeading.js.jsx';
 
  import {
-   Button,
-   Icon,
    Menu,
    Responsive,
    Segment,
-   Sidebar,
    Visibility,
-   Container,
-   Sticky
+   Container
  } from 'semantic-ui-react';
 
 export default class DesktopContainer extends Component {
-  state = { sidebarOpened: false}
+  state = {}
 
-  handlePusherClick = () => {
-    const { sidebarOpened } = this.state
-
-    if (sidebarOpened) this.setState({ sidebarOpened: false })
-  }
-  handleToggle = () => this.setState({ sidebarOpened: !this.state.sidebarOpened })
   hideFixedMenu = () => this.setState({ fixed: false })
   showFixedMenu = () => this.setState({ fixed: true })
-  handleContextRef = contextRef => this.setState({ contextRef })
 
   render() {
     const { children } = this.props
-    const { fixed, sidebarOpened, contextRef } = this.state
+    const { fixed } = this.state
+
 
     return (
       <Responsive {...Responsive.onlyComputer}>
-        <div ref={this.handleContextRef}>
-          <Sidebar.Pushable as={Segment}>
-            <Sidebar as={Menu} animation='uncover' width='thin' visible={sidebarOpened} icon='labeled' vertical inverted>
-              <Visibility once={false}>
-                <Menu.Item name='home'>
-                  <Icon name='home' />
-                  Home
-                </Menu.Item>
-                <Menu.Item name='gamepad'>
-                  <Icon name='gamepad' />
-                  Games
-                </Menu.Item>
-                <Menu.Item name='camera'>
-                  <Icon name='camera' />
-                  Channels
-                </Menu.Item>
-              </Visibility>
-            </Sidebar>
+        <Visibility once={false} onBottomPassed={this.showFixedMenu} onBottomPassedReverse={this.hideFixedMenu}>
+          <Segment inverted textAlign='center' className="mainbanner" vertical>
+            <Menu
+              fixed={fixed ? 'top' : null}
+              inverted={!fixed}
+              pointing={!fixed}
+              secondary={!fixed}
+              size='large'
+            >
+              <Container>
+                <Menu.Item as='a' active>Home</Menu.Item>
+                <Menu.Item as='a'>Work</Menu.Item>
+                <Menu.Item as='a'>Company</Menu.Item>
+                <Menu.Item as='a'>Careers</Menu.Item>
+              </Container>
+            </Menu>
+            <HomepageHeading />
+          </Segment>
+        </Visibility>
 
-              <Sidebar.Pusher onClick={this.handlePusherClick} style={{ minHeight: '100vh' }}>
-                <Segment inverted textAlign='center' style={{ minHeight: 700, padding: '1em 0em' }} vertical>
-                  <Sticky context={contextRef} pushing>
-                  <Container>
-                    <Menu inverted pointing primary size='large'>
-                      <Menu.Item onClick={this.handleToggle}>
-                        <Icon name='sidebar' />
-                      </Menu.Item>
-                    </Menu>
-                  </Container>
-                  </Sticky>
-
-                  <HomepageHeading />
-                </Segment>
-                  {children}
-              </Sidebar.Pusher>
-          </Sidebar.Pushable>
-        </div>
+        {children}
       </Responsive>
     )
   }
