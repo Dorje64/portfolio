@@ -3,3 +3,29 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.about-tab .item{
+  font-size: 18px !important;
+  margin-left: 25% !important;
+  align-content: center !important;
+  font-weight: bold !important;
+}
+
+.about-tab .ui.secondary.pointing.menu .active.item {
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-color: #18ba60 !important;
+    color: #18ba60 !important;
+}
+
+.ui.secondary.pointing.menu {
+    /* border-bottom: 2px solid rgba(34,36,38,.15); */
+}
+
+.mainbanner{
+  min-height: 738px !important;
+  padding: 1em, 0em !important;
+  background-image: url('banner.jpg') !important;
+  background-attachment: fixed !important;
+}
