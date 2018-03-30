@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import DesktopContainer from './desktopContainer.js.jsx';
 import MobileContainer from './mobileContainer.js.jsx';
+import { Motion, spring } from 'react-motion';
 
 import {
   Button,
@@ -13,9 +14,10 @@ import {
   List,
   Segment,
   Tab,
-  Progress
-} from 'semantic-ui-react';
-
+  Progress,
+  Transition,
+  Card
+  } from 'semantic-ui-react';
 
 const Intro = () => { return(<div>
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -24,24 +26,38 @@ const Intro = () => { return(<div>
                         specimen book. It has survived not only five centuries.
                     </div>)
                   }
+
 const panes = [
   { menuItem: 'ABOUT', render: () => <Intro /> },
-  { menuItem: 'SKILLS', render: () => (<div>
-    <dl>
-    <dt>
-    <Progress percent={32} inverted color='green' progress />
-    </dt>
-    <dd>
-      HTML/CSS
-    </dd>
-    </dl>
-    <Progress percent={59} inverted color='green' progress />
-    <Progress percent={13} inverted color='green' progress />
-    <Progress percent={37} inverted color='green' progress />
-    <Progress percent={83} inverted color='green' progress />
+  { menuItem: 'SKILLS', render: () => ( <Grid>
+                                          <Grid.Row>
+                                            <Grid.Column width={12}>
+                                              <Progress percent={75} inverted color='green' progress />
+                                            </Grid.Column>
+                                            <Grid.Column width={4}>
+                                              HTML/CSS
+                                            </Grid.Column>
+                                          </Grid.Row>
 
+                                          <Grid.Row>
+                                            <Grid.Column width={12}>
+                                              <Progress percent={86} inverted color='green' progress />
+                                            </Grid.Column>
+                                            <Grid.Column width={4}>
+                                              Ruby on Rails
+                                            </Grid.Column>
+                                          </Grid.Row>
 
-    </div>) }
+                                          <Grid.Row>
+                                            <Grid.Column width={12}>
+                                              <Progress percent={80} inverted color='green' progress />
+                                            </Grid.Column>
+                                            <Grid.Column width={4}>
+                                              JavaScript/React
+                                            </Grid.Column>
+                                          </Grid.Row>
+                                        </Grid>
+                                        ) }
 ]
 
 const ResponsiveContainer = ({ children }) => (
@@ -55,9 +71,11 @@ ResponsiveContainer.propTypes = {
   children: PropTypes.node,
 }
 
-const HomepageLayout = () => (
+const HomepageLayout = (page) => {
+  return(
   <ResponsiveContainer>
-    <Segment style={{ padding: '4em 0em' }} vertical>
+
+    <Segment style={{ padding: '4em 0em' }} id="about" vertical>
       <Grid container stackable >
         <Grid.Row>
           <Grid.Column width={6}>
@@ -74,49 +92,39 @@ const HomepageLayout = () => (
         </Grid.Row>
       </Grid>
     </Segment>
-    <Segment style={{ padding: '0em' }} vertical>
-      <Grid celled='internally' columns='equal' stackable>
-        <Grid.Row textAlign='center'>
-          <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
-            <Header as='h3' style={{ fontSize: '2em' }}>"What a Company"</Header>
-            <p style={{ fontSize: '1.33em' }}>That is what they all say about us</p>
+
+    <Segment style={{ padding: '0em', backgroundColor: '#f7f7f7', paddingBottom: '50px' }} vertical>
+      <Grid centered>
+        <Grid.Row>
+          <Grid.Column width={2}>
+            <h1> What I Do? </h1>
           </Grid.Column>
-          <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
-            <Header as='h3' style={{ fontSize: '2em' }}>"I shouldn't have gone with their competitor."</Header>
-            <p style={{ fontSize: '1.33em' }}>
-              <Image avatar src='/assets/images/avatar/large/nan.jpg' />
-              <b>Nan</b> Chief Fun Officer Acme Toys
-            </p>
-          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+        <Grid.Column width={12}>
+          <Card.Group itemsPerRow={3}>
+            <Card color='green' style={{height: '300px'}}/>
+            <Card color='green' style={{height: '300px'}}/>
+            <Card color='green' style={{height: '300px'}}/>
+          </Card.Group>
+        </Grid.Column>
         </Grid.Row>
       </Grid>
     </Segment>
+
+
     <Segment style={{ padding: '8em 0em' }} vertical>
       <Container text>
-        <Header as='h3' style={{ fontSize: '2em' }}>Breaking The Grid, Grabs Your Attention</Header>
-        <p style={{ fontSize: '1.33em' }}>
-          Instead of focusing on content creation and hard work, we have learned how to master the art of doing
-          nothing by providing massive amounts of whitespace and generic content that can seem massive, monolithic
-          and worth your attention.
-        </p>
-        <Button as='a' size='large'>Read More</Button>
-        <Divider
-          as='h4'
-          className='header'
-          horizontal
-          style={{ margin: '3em 0em', textTransform: 'uppercase' }}
-        >
-          <a>Case Studies</a>
-        </Divider>
-        <Header as='h3' style={{ fontSize: '2em' }}>Did We Tell You About Our Bananas?</Header>
-        <p style={{ fontSize: '1.33em' }}>
-          Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but it's really
-          true.
-          It took years of gene splicing and combinatory DNA research, but our bananas can really dance.
-        </p>
-        <Button as='a' size='large'>I'm Still Quite Interested</Button>
+
       </Container>
     </Segment>
+
+    <Segment style={{ padding: '8em 0em', backgroundColor: '#f7f7f7'}} vertical>
+      <Container text>
+
+      </Container>
+    </Segment>
+
     <Segment inverted vertical style={{ padding: '5em 0em' }}>
       <Container>
         <Grid divided inverted stackable>
@@ -147,6 +155,7 @@ const HomepageLayout = () => (
         </Grid>
       </Container>
     </Segment>
+
   </ResponsiveContainer>
-)
+)}
 export default HomepageLayout
