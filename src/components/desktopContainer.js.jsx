@@ -5,17 +5,20 @@
  import PropTypes from 'prop-types';
  import React, { Component } from 'react';
  import HomepageHeading from './homepageHeading.js.jsx';
+ import { Motion, spring } from 'react-motion';
 
  import {
+   Button,
    Menu,
    Responsive,
    Segment,
    Visibility,
-   Container
+   Container,
+   Grid
  } from 'semantic-ui-react';
 
 export default class DesktopContainer extends Component {
-  state = {}
+  state = {open: false}
 
   hideFixedMenu = () => this.setState({ fixed: false })
   showFixedMenu = () => this.setState({ fixed: true })
@@ -23,26 +26,10 @@ export default class DesktopContainer extends Component {
   render() {
     const { children } = this.props
     const { fixed } = this.state
-
-
     return (
       <Responsive {...Responsive.onlyComputer}>
         <Visibility once={false} onBottomPassed={this.showFixedMenu} onBottomPassedReverse={this.hideFixedMenu}>
           <Segment inverted textAlign='center' className="mainbanner" vertical>
-            <Menu
-              fixed={fixed ? 'top' : null}
-              inverted={!fixed}
-              pointing={!fixed}
-              secondary={!fixed}
-              size='large'
-            >
-              <Container>
-                <Menu.Item as='a' active>Home</Menu.Item>
-                <Menu.Item as='a'>Work</Menu.Item>
-                <Menu.Item as='a'>Company</Menu.Item>
-                <Menu.Item as='a'>Careers</Menu.Item>
-              </Container>
-            </Menu>
             <HomepageHeading />
           </Segment>
         </Visibility>
